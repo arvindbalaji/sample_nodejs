@@ -1,13 +1,13 @@
-# Damn Vulnerable NodeJS Application
-
-FROM node:carbon
+FROM node:carbon-slim
 LABEL MAINTAINER "Subash SN"
 
 WORKDIR /app
 
 COPY . .
 
-RUN chmod +x /app/entrypoint.sh \
-	&& npm install
+RUN apt-get update && \
+    apt-get install -y iputils-ping
+RUN npm install -g nodemon && \
+    npm install
 
-CMD ["bash", "/app/entrypoint.sh"]
+CMD ["npm", "start"]
