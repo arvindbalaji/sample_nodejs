@@ -1,13 +1,24 @@
 # Damn Vulnerable NodeJS Application
+# docker run --name dvna -p 9090:9090 -d appsecco/dvna:sqlite
 
-FROM node:carbon
-LABEL MAINTAINER "Subash SN"
+FROM node:carbon-slim
+LABEL MAINTAINER "Appsecco Ops"
+
+WORKDIR /opt
+
+COPY package.json .
+
+RUN npm install
 
 WORKDIR /app
 
 COPY . .
 
-RUN chmod +x /app/entrypoint.sh \
-	&& npm install
+RUN apt-get update && \
+    apt-get install -y iputils-ping
 
-CMD ["bash", "/app/entrypoint.sh"]
+RUN npm install -g nodemon
+
+ENV NODE_PATH=/opt/node_modules
+
+CMD ["npm", "start"]
