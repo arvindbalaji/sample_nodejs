@@ -1,5 +1,5 @@
 {
-  "name": "dvna",
+  "name": "dvn",
   "version": "0.0.1",
   "description": "Damn Vulnerable NodeJS Application",
   "main": "server.js",
